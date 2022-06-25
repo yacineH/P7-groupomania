@@ -1,0 +1,13 @@
+.divCont{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.divLik{
+    margin: 5px;
+}
+
+.divLik button{
+    margin: 3px;
+    border: 0px;
+}

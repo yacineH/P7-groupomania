@@ -1,0 +1,28 @@
+
+.divContainer{
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.divCard{
+    margin : 10px;
+    border:1px solid #4E5166;
+    display: flex;
+
+   
+}
+
+.divImg{
+    width: 250px;
+    height: 250px;
+}
+
+.divImg img{
+    width: 250px;
+    height: 250px;
+}
+
+.divContent{
+    border :0px solid red;
+}
+
