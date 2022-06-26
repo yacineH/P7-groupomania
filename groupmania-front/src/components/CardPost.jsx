@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CardPost({post}) {
 
-  return (<div className="divCard">
+  return (<div  className="divCard">
             <div className='divImg'>
               <img src={post.imageUrl} alt="post.message" />
             </div>

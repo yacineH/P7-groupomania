@@ -17,26 +17,28 @@ export default function Posts(){
     const [isLoading,setIsLoading] = useState(true)
     const {isAdmin,setIsAdmin} =useContext(AdminContext)
 
-    useEffect(() => {      
-      fetchAllPost()
-    },[])
+    useEffect(() => {
+      const fetchPosts = async ()=>{                
+          return await findPosts()        
+      }
 
-  const fetchAllPost = async ()=>{
-      try{
-        setIsAdmin(checkAdmin) 
-        const data= await findPosts()
+
+      fetchPosts()
+       .then((data) =>  {
         setPosts(data)
         setIsLoading(false)
-        
-        //ordonner les objets par date
-        posts.sort((param1,param2)=>{
-          return param1.datePost - param2.datePost
-        })
-
-      }catch(error){
+        setIsAdmin(checkAdmin)
+        if(posts){
+          posts.sort((param1,param2)=>{
+           return param1.datePost - param2.datePost
+          })
+        } 
+       })
+       .catch(error=> {
         console.log(error)
-      }
-    }
+       })    
+       
+    },[posts,isLoading,setIsAdmin])
 
     return (
         <div>
@@ -66,8 +68,8 @@ export default function Posts(){
                    </div>
                    ) : 
                    posts.map(post=>( 
-                       <Link to={`/post/${post._id}`}>
-                         <CardPost  post={post} key={post._id}/>
+                       <Link to={`/post/${post._id}`} key={post._id}>
+                         <CardPost  post={post} />
                        </Link>                    
                    ),0)
                 }

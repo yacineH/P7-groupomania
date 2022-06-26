@@ -13,19 +13,22 @@ export default function Post(){
 
     const [currentPost,setCurrentPost] = useState(null)
     const [isLoading,setIsLoading] = useState(true)
-    const {isAdmin} =useContext(AdminContext)
+    const {isAdmin,setIsAdmin} =useContext(AdminContext)
 
     const {id} = useParams()
 
     useEffect(()=>{
-        findPost(id)
-        .then(data =>{
+      const fetchPost = async ()=>{           
+           return await findPost(id)
+      }
+      
+      fetchPost()
+      .then(data =>{
           setCurrentPost(data)
           setIsLoading(false)
-          console.log('data',currentPost)
-        })
-        .catch(err=>console.log(err))
-    },[findPost])
+      })
+      .catch(error=>console.log(error))
+    },[setCurrentPost,setIsLoading,id])
     
 
     return (
@@ -34,9 +37,9 @@ export default function Post(){
           <main>
             <div>
             {isLoading ? (
-                <div class="text-center">
-                  <div class="spinner-border" role="status">
-                    <span class="sr-only">Loading...</span>
+                <div className="text-center">
+                  <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
                   </div>
                 </div>
               ) :              
@@ -48,8 +51,8 @@ export default function Post(){
                     <div className="divContent">
                         <div className="col-12">
                           <p className="card-title">{currentPost._id}</p>
-                          <p class="card-text">{currentPost.message}</p>
-                          <p class="card-text"><small class="text-muted">{new Date(currentPost.datePost).toLocaleString()}</small></p>
+                          <p className="card-text">{currentPost.message}</p>
+                          <p className="card-text"><small className="text-muted">{new Date(currentPost.datePost).toLocaleString()}</small></p>
                         </div>
                     </div>
                     <div className="divButtons">
