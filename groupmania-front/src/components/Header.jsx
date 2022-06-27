@@ -19,7 +19,7 @@ export default function Header(){
                 </div>
                 <div className="divLogout">
                     <Link to="/">
-                        <button className="btn btn-primary" onClick={handleClick}>
+                        <button   onClick={handleClick}>
                                     Logout
                         </button>
                     </Link>

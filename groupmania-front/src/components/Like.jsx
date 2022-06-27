@@ -4,24 +4,28 @@ import '../utils/styles/like.css';
 
 export default function Like({likes,dislikes}){
 
-    console.log(likes)
-    const [nbLike,setNbLike]=useState(likes)
-    const [nbDislike,setNbDislike]=useState(dislikes)
+     const [nbLike,setNbLike]=useState(likes)
+     const [nbDislike,setNbDislike]=useState(dislikes)
+
+     const handleClick = () =>{
+            
+
+     }
+
 
     return (
         <div className="divCont">
             <div className="divLik">
                 <span>{nbLike}</span>
-                <button>
+                <button onClick={handleClick}>
                   <AiTwotoneLike/>
                 </button>
             </div>
             <div className="divDislik">
                <span>{nbDislike}</span>
-               <button>
+               <button onClick={handleClick}>
                 <AiTwotoneDislike/>
-               </button>
-               
+               </button>               
             </div>
         </div>
          

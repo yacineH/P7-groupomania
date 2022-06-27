@@ -1,4 +1,4 @@
-import {URL_LOGIN} from '../utils/config';
+import {URL_LOGIN,URL_SIGN} from '../utils/config';
 import jwtDecode from 'jwt-decode';
 
 const token = window.localStorage.getItem("token")
@@ -56,4 +56,21 @@ export function authenticate(credentiels){
     return id
   }
 
+  export function register(credentiels,adm){
+    return fetch(URL_SIGN,{
+      method : "POST",
+      headers :{
+        'Accept' : 'Application/json',
+        'Content-Type': 'application/json',
+      },
+      body : JSON.stringify({
+        email : credentiels.email,
+        password : credentiels.password,
+        name : credentiels.name,
+        admin : adm
+      })
+    })
+    .then(res=> res.json())
+    .catch(error=>{ throw new Error()})
 
+  }

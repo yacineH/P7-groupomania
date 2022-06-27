@@ -46,14 +46,14 @@ export default function Posts(){
 
           <div>
           <Link to="/newPost">
-                <button className="btn btn-primary">
+                <button>
                       New Post
                 </button>
             </Link>
 
             { isAdmin && (
                 <Link to="/register">
-                  <button className="btn btn-primary">
+                  <button>
                     New User
                   </button>               
               </Link>
