@@ -28,5 +28,46 @@ function findPost(id){
 }
 
 
-export {findPost,findPosts}
+function persistPost(post){
+
+
+  const formData =new FormData()
+  
+  formData.append('post' ,JSON.stringify({
+    employeeId : post.employeeId,
+    title :post.title ?post.title : "",
+    message : post.message
+  }))
+
+  if(post.image) formData.append('image',post.image)
+   
+  return fetch(URL_ALLPOSTS,{
+    method : "POST",
+    headers :{
+      'Accept' : '*/*',
+      'Authorization' : `Bearer ${token}`
+    },
+    body : formData
+  })
+}
+
+
+function deletePost(id,empId){
+  var chemin =new URL(URL_ALLPOSTS + "/" +id)
+
+  return fetch(chemin,
+      {
+       method : "DELETE",
+       headers :{
+        'Authorization': `Bearer ${token}`
+       }
+    })
+    .then((res)=>{
+        console.log(res)
+        res.json()
+    })
+}
+
+
+export {findPost,findPosts,persistPost,deletePost}
 

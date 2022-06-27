@@ -25,14 +25,14 @@ export default function Posts(){
 
       fetchPosts()
        .then((data) =>  {
+        if(data){
+            data.sort((param1,param2)=>{
+              return param2.datePost - param1.datePost
+            })
+        }  
         setPosts(data)
         setIsLoading(false)
         setIsAdmin(checkAdmin)
-        if(posts){
-          posts.sort((param1,param2)=>{
-           return param1.datePost - param2.datePost
-          })
-        } 
        })
        .catch(error=> {
         console.log(error)

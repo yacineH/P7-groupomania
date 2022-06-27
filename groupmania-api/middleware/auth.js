@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.JWTPASS);
-    const employeeIdToken = decodedToken.employeeId;
+    const employeeIdToken = decodedToken.employee.id;
 
     Employee.findOne({_id :employeeIdToken})
      .then(employee=>{

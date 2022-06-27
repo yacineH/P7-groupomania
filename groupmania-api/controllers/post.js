@@ -3,7 +3,7 @@ const fs= require('fs');
 
 
 /**
- * Renvoie un tableau avec tous les posts stockés en base
+ * Renvoie un tableau avec tous les messages stockés en base
  * @param {request} req 
  * @param {response} res 
  * @param {middleware} next 
@@ -34,7 +34,7 @@ exports.getOnePost = (req, res, next) => {
 
 
 /**
- * Enregistre la sauce en base avec initialisation des proprietes de la sauce 
+ * Enregistre le message en base avec initialisation des proprietes 
  * definition du chemin dans imageUrl
  * @param {request} req 
  * @param {response} res 
@@ -49,8 +49,8 @@ exports.createPost = (req, res, next) => {
     usersLiked : [],
     usersDisliked : [],
     datePost :Date.now(),
-    title : "",
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    title : req.title ? req.title : "",
+    imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : ""
   });
   post.save()
     .then(() => res.status(201).json({ message: 'Post enregistrée !'}))
@@ -59,10 +59,10 @@ exports.createPost = (req, res, next) => {
 
 
 /**
- * Met a jour la sauce,verifie dans la request la presance ou pas d'un fichier
+ * Met a jour le message,verifie dans la request la presance ou pas d'un fichier
  * sans file donc les infos sont dans le body avec sauce en json
  * avec file req.file.filename
- * verifie si le user qui envoi la request est bien le crateur de la sauce 
+ * verifie si le user qui envoi la request est bien le createur du message 
  * @param {request} req 
  * @param {response} res 
  * @param {middleware} next 
@@ -101,10 +101,10 @@ exports.modifyPost = (req, res, next) => {
 
 
 /**
- * Supprime la sauce a partir de l'id de la request
- * verifie si le user qui envoi la request est bien le createur de la sauce
+ * Supprime le massage a partir de l'id de la request
+ * verifie si le user qui envoi la request est bien le createur du message
  * avec filesystem permet de supprimer aussi le fichier correspondant dans le disk dans image
- * une fois le fichier supprimé on supprime la sauce de la base
+ * une fois le fichier supprimé on supprime le message de la base
  * @param {request} req 
  * @param {response} res 
  * @param {middleware} next 
@@ -116,7 +116,7 @@ exports.deletePost = (req, res, next) => {
         const filename = post.imageUrl.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
           Post.deleteOne({ _id: req.params.id })
-            .then(() => res.status(200).json({ message: 'Sauce suppriméé !'}))
+            .then(() => res.status(200).json({ message: 'Message suppriméé !'}))
             .catch(error => res.status(400).json({ error }));
         });
       }
@@ -130,7 +130,7 @@ exports.deletePost = (req, res, next) => {
 
 /**
  * A partir de la valeur like dans la request :0,1,-1 on choit l'action a realiser (annuler,liker,dislike)
- * a partir de id de la sauce on regarde si elle existe apres selon la valeur de like on realise l'action souhaité
+ * a partir de id du message on regarde s'il existe apres selon la valeur de like on realise l'action souhaité
  * @param {request} req 
  * @param {response} res 
  * @param {middleware} next 

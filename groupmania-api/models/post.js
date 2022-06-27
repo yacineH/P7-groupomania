@@ -8,11 +8,11 @@ const postShema = mongoose.Schema({
  message : { type : String, required : true},
  title : {type : String ,default :""},
  datePost : {type : Number , default: Date.now()},
- imageUrl : { type : String,required : true},
- likes : { type : Number ,required :true, default : 0},
- dislikes : { type : Number, required : true, default: 0},
- usersLiked : { type : [String], required : true, default: []},
- usersDisliked :{ type : [String], required : true, default : []},
+ imageUrl : { type : String},
+ likes : { type : Number , default : 0},
+ dislikes : { type : Number,  default: 0},
+ usersLiked : { type : [String],  default: []},
+ usersDisliked :{ type : [String],  default : []},
 });
 
 //export du modele sauce
