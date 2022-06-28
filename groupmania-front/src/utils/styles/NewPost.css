@@ -3,8 +3,8 @@ h2{
     margin-bottom: 60px;
 }
 form{
-    margin-top :80px;
-    margin-bottom :100px;
+    margin-top :40px;
+    margin-bottom :250px;
     height: 700px;
     width: 500px;
     border:0px;
@@ -13,4 +13,21 @@ form{
 form img{
     width: 150px;
     height: 120px;
+}
+
+.divSubmit{
+    margin-top: 30px;
+    display: flex;
+    justify-content: end;
+    margin-right: 10px;
+}
+
+.divSubmit button{
+    border-radius: 20px;
+    color: white;
+    background-color: #fd2d01;
+    padding: 5px;
+    font-size: 18px;
+    border : 1px solid #ffd7d7;
+    width: 150px;
 }

@@ -11,8 +11,8 @@ export default function CardPost({post}) {
             </div>
             
             <div className='divContent'>
-              <p className="card-text">{post.message}</p>
-              <p>Posté le : {new Date(post.datePost).toLocaleString()}</p>               
+              <p><span>Posté le : </span>{new Date(post.datePost).toLocaleString()}</p>
+              <p className="card-text">{post.message.substring(0,100)} ...</p>                             
             </div>
            
           </div>)

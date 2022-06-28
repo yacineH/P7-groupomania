@@ -40,7 +40,6 @@ function NewPost(){
         }
     }
 
-
     const handleSubmit =async (event) =>{
        event.preventDefault()
 
@@ -65,45 +64,44 @@ function NewPost(){
     return (<div>
                 <Header/>
                 <form onSubmit={handleSubmit}>
-                    <h2>Ajouter un message</h2>
-                    <div className="form-group row">
+                    <h2>New Post</h2>
+                    <div className="form-group row mt-2">
                         <label htmlFor="employeeId" className="col-sm-2 col-form-label">Id</label>
                         <div className="col-sm-10">
                           <input className="form-control" type="text" id="employeeId"                         
                                  name="employeeId" value={employeeId} onChange={handleChange}  readOnly/>
                         </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="form-group row mt-2">
                         <label htmlFor="title" className="col-sm-2 col-form-label">Titre</label>
                         <div className="col-sm-10">
                           <input type="text" className="form-control" 
                                id="title" name="title" aria-describedby="titleHelp" onChange={handleChange} required/>                        
                         </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="form-group row mt-2">
                         <label htmlFor="message" className="col-sm-2 col-form-label">Message</label>
                         <div className="col-sm-10">
                            <textarea className="form-control" id="message" name="message" rows="5" 
                                      onChange={handleChange} required></textarea>
                         </div>
-                    </div>
-                
-                    <div className="form-group row">
+                    </div>                
+                    <div className="form-group row mt-2">
                         <label htmlFor="image" className="col-sm-2 col-form-label">Image</label>
                         <div className="col-sm-10">
                            <input type="file" className="form-control" accept=".png,.jpeg, .jpg" 
                                   id="image" name="image" onChange={handleChange}/>
                         </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="form-group row mt-2">
                         <label className="col-sm-2 col-form-label"></label>
                         <div className="col-sm-10">
                             <img src={imageLocale} alt={currentPost.title}/>
                         </div>
 
                     </div> 
-                    <div>
-                     <button type="submit">Submit</button>
+                    <div className="divSubmit mt-6">
+                      <button type="submit">Submit</button>
                     </div>
                 </form>
                 <Footer/>

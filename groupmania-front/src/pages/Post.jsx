@@ -15,24 +15,27 @@ import NoImage from "../assets/no-image.jpg";
 export default function Post(){
 
     const history = useHistory()
-    const [currentPost,setCurrentPost] = useState(null)
+    const [currentPost,setCurrentPost] = useState({
+      title: "",
+      message :"",
+      image : null
+    })
     const [isLoading,setIsLoading] = useState(true)
     const {isAdmin} =useContext(AdminContext)
     const {employeeId} = useContext(EmployeeContext)
     const {id} = useParams()
+    const [imageLocale,setImageLocale]=useState(NoImage)
 
     useEffect(()=>{
+      
       const fetchPost = async ()=>{           
-           return await findPost(id)
+          const data = await findPost(id)
+          setCurrentPost(data)
+          setIsLoading(false)
       }
       
       fetchPost()
-      .then(data =>{
-          setCurrentPost(data)
-          setIsLoading(false)
-      })
-      .catch(error=>console.log(error))
-    },[currentPost,setIsLoading,id])
+    },[id])
     
 
     const handleDelete =async (event) =>{
@@ -45,11 +48,31 @@ export default function Post(){
       }
     }
 
+
+    const handleChange = (event)=>{
+        
+        const {name,value} = event.target
+        if(name === "image"){
+            var fReader = new FileReader()
+            fReader.readAsDataURL(event.target.files[0])
+            fReader.onload = function (e){
+                setImageLocale(e.target.result)
+            }
+
+            setCurrentPost({...currentPost,
+                [name] : event.target.files[0]
+            })
+        }
+        else{
+            setCurrentPost({...currentPost,
+                [name] : value
+            })
+        }
+    }
+
     return (
        <div>
-         <Header/>
-
-          
+         <Header/>          
             {isLoading ? (
                 <div className="text-center">
                   <div className="spinner-border" role="status">
@@ -57,11 +80,8 @@ export default function Post(){
                   </div>
                 </div>
               ) :              
-              ( <div>  
-                  <div className="like">
-                   <Like likes={currentPost.likes} dislikes={currentPost.dislikes}/>                        
-                  </div>  
-                  <form className="container">                                  
+              ( <div>                   
+                  <form className="form">                                  
                     <div className="form-group row">
                       <div className="col-12">
                         { currentPost.imageUrl === "" ?
@@ -71,47 +91,52 @@ export default function Post(){
                       </div>        
                     </div>
                     
-                    <div className="form-group row">
+                    <div className="form-group row mt-2">
                       <label htmlFor="title" className="col-sm-3 col-form-label"> Titre</label>
                       <div className="col-sm-9">
-                        <input type="text" name="title" className="form-control" id="title" value={currentPost.title} />
+                        <input type="text" name="title" className="form-control" id="title" 
+                               value={currentPost.title} onChange={handleChange} />
                       </div>                     
                     </div>
                     
-                    <div className="form-group row">
+                    <div className="form-group row mt-2">
                       <label htmlFor="message" className="col-sm-3 col-form-label">Message</label>
                       <div className="col-sm-9">
-                      <textarea className="form-control" id="message" name="message" rows="5" 
-                                 required></textarea>
+                      <textarea className="form-control" id="message" name="message" rows="10" 
+                                 required onChange={handleChange}>{currentPost.message}</textarea>
                       </div>                    
                     </div>
                    
-                    <div className="form-group row">
+                    <div className="form-group row mt-2">
                       <label htmlFor="image" className="col-sm-3 col-form-label">Change Image</label>
                       <div className="col-sm-9">
                         <input type="file" className="form-control" accept=".png,.jpeg, .jpg" 
-                                id="image" name="image" />
+                                id="image" name="image" onChange={handleChange} />
                       </div>
                     </div>
                      
-                    <div className="form-group row">
+                    <div className="form-group row mt-2">
                       <label className="col-sm-3 col-form-label"></label>
                       <div className="col-sm-9">
-                          <img src="" alt={currentPost.title}/>
+                          <img src={imageLocale} alt={currentPost.title}/>
                       </div>
                     </div> 
 
-                    <div className="form-group row">                       
-                          <div className="col-sm-6">
+                    <div className="form-group row mt-4">                       
+                          <div className="col-sm-6 divLike">
+                             <Like likes={currentPost.likes} dislikes={currentPost.dislikes}/>                        
                           </div>
-                          <div className="col-sm-6">
-                            {currentPost.employeeId === employeeId &&
-                              <button>Update</button>
-                            }
-                             
-                            { (isAdmin || currentPost.employeeId === employeeId) &&
-                              <button onClick={handleDelete}>Delete</button>
-                            }
+                          <div className="col-sm-6 divBouttons">
+                            <div>
+                              {currentPost.employeeId === employeeId &&
+                                <button className="btn btn-primary">Update</button>
+                              }
+                            </div>
+                            <div>
+                              { (isAdmin || currentPost.employeeId === employeeId) &&
+                                <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+                              }
+                            </div>
                           </div>
                     </div>
 

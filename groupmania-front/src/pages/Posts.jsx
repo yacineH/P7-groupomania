@@ -17,48 +17,34 @@ export default function Posts(){
     const [isLoading,setIsLoading] = useState(true)
     const {isAdmin,setIsAdmin} =useContext(AdminContext)
 
+
     useEffect(() => {
-      const fetchPosts = async ()=>{                
-          return await findPosts()        
-      }
 
-
-      fetchPosts()
-       .then((data) =>  {
+      const fetchAllPosts =async () =>{
+        const data = await findPosts()
         if(data){
-            data.sort((param1,param2)=>{
-              return param2.datePost - param1.datePost
-            })
+          data.sort((param1,param2)=>{
+            return param2.datePost - param1.datePost
+          })
         }  
         setPosts(data)
         setIsLoading(false)
         setIsAdmin(checkAdmin)
-       })
-       .catch(error=> {
-        console.log(error)
-       })    
-       
-    },[posts,isLoading,setIsAdmin])
+      }
+
+      fetchAllPosts()  
+    },[setIsAdmin])
 
     return (
         <div>
           <Header/>
-
-          <div>
-          <Link to="/newPost">
-                <button>
-                      New Post
-                </button>
-            </Link>
-
-            { isAdmin && (
-                <Link to="/register">
-                  <button>
-                    New User
-                  </button>               
-              </Link>
-              )
-            } 
+          <div className="divLiens">
+            <div>
+              <Link  to="/newPost">New Post</Link>
+            </div>             
+            <div>
+                { isAdmin && ( <Link  to="/register">New User</Link>) } 
+            </div>             
           </div>
           <div>
             <div className="divContainer">            

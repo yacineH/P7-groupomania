@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import {register} from "../services/authAPI";
-import Header from "../components/Header"
+import Header from "../components/Header";
+import "../utils/styles/NewUser.css";
 
  function NewUser(){
 
@@ -47,29 +48,32 @@ import Header from "../components/Header"
        
       <form onSubmit={handleSubmit}>
             <h2>
-               Nouveau employee
+               New Employee
             </h2>
-            <div className="form-group">
-               <label htmlFor="name">Nom</label>
-               <input type="text" name="name"  className="form-control" 
+            <div className="form-group row mt-4">
+               <label htmlFor="name" className="col-sm-2 col-form-label">Nom</label>
+               <input type="text" name="name"  className="form-control col-sm-10" 
                      id="name" aria-describedby="nomHelp" onChange={handleChange}/>
             </div> 
-            <div className="form-group">
-               <label htmlFor="email">Email address</label>
-               <input type="email" name="email" placeholder="name@example.com" className="form-control" 
+            <div className="form-group row mt-4">
+               <label htmlFor="email"  className="col-sm-2 col-form-label">Email</label>
+               <input type="email" name="email" placeholder="name@example.com" className="form-control col-sm-10" 
                      id="email" aria-describedby="emailHelp" onChange={handleChange}/>
             </div>
-            <div>
-               <label htmlFor="password">Password</label>
-               <input type="password" className="form-control" id="password"
+            <div className="form-group row mt-4">
+               <label htmlFor="password" className="col-sm-2 col-form-label">Password</label>
+               <input type="password" className="form-control col-sm-10" id="password"
                      name="password" onChange={handleChange}/>
             </div>
-            <div className="form-group form-check">
+            <div className="form-group form-check mt-4 ml-2">
                <input type="checkbox" className="form-check-input" defaultChecked={false}
                       onChange={handleCheck} name="checkAdmin" value={adminCheck}  id="checkAdmin"/>
                <label className="form-check-label" htmlFor="checkAdmin">Admin</label>
+            </div>
+            <div className="divButton">              
+                <button type="submit">Submit</button>
             </div> 
-            <button type="submit">Login</button>
+          
             <p>{showMessage && message}</p>
        </form>
        </div>)

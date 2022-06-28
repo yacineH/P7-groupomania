@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { AiOutlineLogout } from "react-icons/ai";
+
 import Logo from '../assets/dark-logo.png';
 import '../utils/styles/header.css';
 
@@ -18,10 +20,8 @@ export default function Header(){
                     </Link>
                 </div>
                 <div className="divLogout">
-                    <Link to="/">
-                        <button   onClick={handleClick}>
-                                    Logout
-                        </button>
+                    <Link to="/" onClick={handleClick}>
+                       Logout <AiOutlineLogout/>                     
                     </Link>
                 </div>
             </div>
