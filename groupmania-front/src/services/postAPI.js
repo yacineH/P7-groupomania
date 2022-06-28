@@ -35,7 +35,7 @@ function persistPost(post){
   
   formData.append('post' ,JSON.stringify({
     employeeId : post.employeeId,
-    title :post.title ?post.title : "",
+    title :post.title,
     message : post.message
   }))
 
@@ -69,5 +69,33 @@ function deletePost(id,empId){
 }
 
 
-export {findPost,findPosts,persistPost,deletePost}
+function updatePost(post){
+  
+  const formData =new FormData()
+
+  formData.append('post',JSON.stringify({
+        employeeId : post.employeeId,
+        title : post.title,
+        message : post.message  
+  }))
+  
+  //doit etre le meme nom image dans la config de multer
+  if(post.image) formData.append('image',post.image)
+
+  var chemin =new URL(URL_ALLPOSTS + "/" + post._id)
+
+  return fetch(chemin,{
+       method : "PUT",
+       headers :{
+        'Authorization': `Bearer ${token}`
+       },
+      body : formData
+    })
+    .then((res)=>{
+        console.log(res)
+        res.json()
+    })
+}
+
+export {findPost,findPosts,persistPost,updatePost,deletePost}
 

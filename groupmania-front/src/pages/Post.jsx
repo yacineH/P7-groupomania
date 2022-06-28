@@ -3,7 +3,7 @@ import { useParams,useHistory } from "react-router-dom";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import {findPost,deletePost} from "../services/postAPI";
+import {findPost,deletePost,updatePost} from "../services/postAPI";
 import AdminContext from "../contexts/adminContext";
 import EmployeeContext from "../contexts/employeeContext";
 import '../utils/styles/post.css';
@@ -15,16 +15,20 @@ import NoImage from "../assets/no-image.jpg";
 export default function Post(){
 
     const history = useHistory()
-    const [currentPost,setCurrentPost] = useState({
-      title: "",
-      message :"",
-      image : null
-    })
     const [isLoading,setIsLoading] = useState(true)
     const {isAdmin} =useContext(AdminContext)
     const {employeeId} = useContext(EmployeeContext)
     const {id} = useParams()
     const [imageLocale,setImageLocale]=useState(NoImage)
+    const [currentPost,setCurrentPost] = useState({
+      id : id,
+      employeeId: employeeId,
+      title: "",
+      message :"",
+      image : null
+    })
+
+
 
     useEffect(()=>{
       
@@ -41,8 +45,8 @@ export default function Post(){
     const handleDelete =async (event) =>{
       event.preventDefault()
       try{
-      await deletePost(currentPost._id,employeeId)
-       .then(()=> history.replace("/home"))
+         await deletePost(currentPost._id,employeeId)
+         .then(()=> history.replace("/home"))
       }catch(error){
         console.log(error)
       }
@@ -68,6 +72,19 @@ export default function Post(){
                 [name] : value
             })
         }
+    }
+
+    
+    const handleUpdate =async (event)=>{
+        event.preventDefault()
+
+       try{
+         await updatePost(currentPost)
+          .then(()=>history.replace("/home"))
+
+       }catch(error){
+        console.log(error)
+       }
     }
 
     return (
@@ -103,7 +120,7 @@ export default function Post(){
                       <label htmlFor="message" className="col-sm-3 col-form-label">Message</label>
                       <div className="col-sm-9">
                       <textarea className="form-control" id="message" name="message" rows="10" 
-                                 required onChange={handleChange}>{currentPost.message}</textarea>
+                                 required onChange={handleChange} value={currentPost.message}/>
                       </div>                    
                     </div>
                    
@@ -129,7 +146,7 @@ export default function Post(){
                           <div className="col-sm-6 divBouttons">
                             <div>
                               {currentPost.employeeId === employeeId &&
-                                <button className="btn btn-primary">Update</button>
+                                <button className="btn btn-primary" onClick={handleUpdate}>Update</button>
                               }
                             </div>
                             <div>

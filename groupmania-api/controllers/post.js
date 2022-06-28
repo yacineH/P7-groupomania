@@ -49,7 +49,6 @@ exports.createPost = (req, res, next) => {
     usersLiked : [],
     usersDisliked : [],
     datePost :Date.now(),
-    title : req.title ? req.title : "",
     imageUrl: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}` : ""
   });
   post.save()
@@ -74,21 +73,27 @@ exports.modifyPost = (req, res, next) => {
     if(post.employeeId === req.employeeId){
       var postObject={};
       if(req.file) { 
-        const filename = post.imageUrl.split('/images/')[1];
+        const filename = post.imageUrl ? post.imageUrl.split('/images/')[1] : "";
+
         postObject={
             ...JSON.parse(req.body.post),
             imageUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
           };
-          fs.unlink(`images/${filename}`, () => {
+        
+        filename ?
+        fs.unlink(`images/${filename}`, () => {
             Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-            .then(() => res.status(200).json({ message: 'Objet modifié !'}))
+            .then(() => res.status(200).json({ message: 'Post modifié !'}))
             .catch(error => res.status(400).json({ error }));
-          });
+        })
+        :  Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
+               .then(() => res.status(200).json({ message: 'Post modifié !'}))
+               .catch(error => res.status(400).json({ error }));
       }
       else{
-        postObject= { ...req.body};
+        postObject= { ...JSON.parse(req.body.post)};
         Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Sauce modifiée !'}))
+        .then(() => res.status(200).json({ message: 'Post modifié !'}))
         .catch(error => res.status(400).json({ error }));
       }
     }
