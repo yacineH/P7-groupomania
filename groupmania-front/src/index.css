@@ -12,42 +12,9 @@ code {
 }
 
 
-nav{
-  padding: 20px 0px;
-  margin-top: 100px;
-}
-
-
-.imgPost{
-  margin-top: 100px;
-
-}
-
-a{
-  text-decoration: none;
-}
-
-.navPosts{
-  margin :0px;
-  border:1px solid red;
-}
 
 
 
 
 
-header{
-  border-bottom: 2px solid #FD2D01;
-}
-header img{
-  height : 230px;
-  width: 230px;
-}
 
-
-footer{
-  margin-top: 100px;
-}
-footer p{
-  text-align: center;
-}

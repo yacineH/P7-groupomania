@@ -1,12 +1,11 @@
 import React,{useState,useContext} from "react";
-import {useHistory} from 'react-router-dom';
+import {useHistory,Link} from 'react-router-dom';
 
 import {authenticate, checkAdmin, checkId} from "../services/authAPI";
 import AuthContext from "../contexts/authContext";
 import AdminContext from "../contexts/adminContext";
 import EmployeeContext from "../contexts/employeeContext";
-import  '../utils/styles/login.css';
-import Logo from '../assets/dark-logo.png';
+import Logo from '../assets/dark-logoB.png';
 
 
  function Login(){
@@ -47,33 +46,46 @@ import Logo from '../assets/dark-logo.png';
        }
    }
 
-    return (<div className="divForm">
-            <div className="divLogo">
-               <img src={Logo} alt="Logo-groupomania"/>
-            </div>
-            <div className="divBienvenue">
-              <h1>Bienvenue dans l'intranet de Groupomania</h1>
-            </div>
-            <form  onSubmit={handleSubmit}>
-
-                  <div className="divField">
-                     <label htmlFor="email">Email</label>
-                     <input type="email" name="email" placeholder="name@example.com" 
-                            className="form-control" id="email" 
-                            required aria-describedby="emailHelp" onChange={handleChange}/>
+    return (<div>
+               <div style={{  display: "flex",justifyContent: "center"}}>
+                     <img style={{  width: "250px",height:"200px"}} src={Logo} alt="Logo-groupomania"/>
+               </div>
+               <div  style={{ border :"1px solid red",display: "flex", borderRadius: "20px", height: "400px"}} 
+                     className="divForm container">
+                <div className="row">
+                  <div style={{ height: "398px", backgroundColor: "#ffd7d7",borderTopLeftRadius: "20px", borderBottomLeftRadius: "20px", textAlign: "center"}} 
+                      className="col-7">
+                        <h1 style={{marginTop: "15%"}}>Bienvenue sur l'intranet de Groupomania</h1>
+                        <p style={{marginTop:"30px"}}>Vous n'avez pas de compte ? <Link to="/register">Inscrivez-vous</Link></p>
                   </div>
-                  <div className="divField">
-                     <label htmlFor="password">Password</label>
-                     <input type="password" className="form-control" 
-                            id="password" name="password" 
-                            required onChange={handleChange}/>
-                  </div>
-                  <div className="divBtn">
-                     <button type="submit">Login</button>
-                  </div>
-                  {isError ? <p>{msgError}</p> : ""}
-            </form>
-            </div>
+                  
+                  <form className="col-5"  
+                        onSubmit={handleSubmit}>
+                     <div className="row">
+                        <div className="form-group col-12">
+                           <label htmlFor="email">Email</label>
+                           <input type="email" name="email" placeholder="name@example.com" 
+                                 className="form-control" id="email" 
+                                 required aria-describedby="emailHelp" onChange={handleChange}/>
+                        </div>
+                        <div className="form-group col-12 mt-4">
+                           <label htmlFor="password">Password</label>
+                           <input type="password" className="form-control" 
+                                 id="password" name="password" 
+                                 required onChange={handleChange}/>
+                        </div>
+                        <div className="col-12 mt-5 text-center">
+                           <button style={{ color: "white",backgroundColor:"#FD2D01",width: "120px",height: "45px",fontSize: "18px",borderRadius: "15px",border:"1px solid #ffd7d7"}} 
+                                   type="submit">
+                                    Login
+                           </button>
+                        </div>
+                        {isError ? <p>{msgError}</p> : ""}
+                     </div>
+                  </form>
+               </div>            
+               </div>
+           </div>
       )
 }
 
