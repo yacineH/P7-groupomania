@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import {AiTwotoneDislike,AiTwotoneLike} from 'react-icons/ai';
 
 
+// TO DO
 export default function Like({likes,dislikes}){
 
      const [nbLike,setNbLike]=useState(likes)
      const [nbDislike,setNbDislike]=useState(dislikes)
 
      const handleClick = () =>{
-            
+            setNbDislike(0)
+            setNbLike(0)
 
      }
 

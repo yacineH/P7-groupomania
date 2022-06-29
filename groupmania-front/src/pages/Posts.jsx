@@ -15,7 +15,7 @@ export default function Posts(){
 
     const [posts,setPosts] = useState(null)
     const [isLoading,setIsLoading] = useState(true)
-    const {isAdmin,setIsAdmin} =useContext(AdminContext)
+    const {setIsAdmin} =useContext(AdminContext)
 
 
     useEffect(() => {
