@@ -6,8 +6,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import {findPosts} from "../services/postAPI"
 import AdminContext from "../contexts/adminContext";
-import '../utils/styles/posts.css';
 import { checkAdmin } from "../services/authAPI";
+import { BsFillFilePostFill } from "react-icons/bs";
 
 
 
@@ -38,23 +38,22 @@ export default function Posts(){
     return (
         <div>
           <Header/>
-          <div className="divLiens">
-            <div>
-              <Link  to="/newPost">New Post</Link>
-            </div>             
-            <div>
-                { isAdmin && ( <Link  to="/register">New User</Link>) } 
-            </div>             
+          <div style={{display: "flex",justifyContent: "end",marginBottom: "20px"}}>
+            <div style={{margin:"15px",color :"#4e5166"}}>
+              <Link  style={{color :"#4e5166",fontSize: "18px"}} to="/newPost">
+                   New Post <BsFillFilePostFill/> 
+              </Link>
+            </div>                         
           </div>
-          <div>
-            <div className="divContainer">            
+          <div style={{marginBottom:"100px"}}>
+          <div style={{display:"flex",flexDirection: "column",flexWrap: "wrap"}}>            
                 { isLoading ? (
                   <div className="spinner-border" role="status">
                     <span className="sr-only">Loading...</span>
                    </div>
                    ) : 
                    posts.map(post=>( 
-                       <Link to={`/post/${post._id}`} key={post._id}>
+                       <Link style={{ textDecoration: "none"}} to={`/post/${post._id}`} key={post._id}>
                          <CardPost  post={post} />
                        </Link>                    
                    ),0)

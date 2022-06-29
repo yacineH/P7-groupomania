@@ -1,16 +1,17 @@
 import React,{useState} from "react";
+import {useHistory} from 'react-router-dom';
 import {register} from "../services/authAPI";
 import Logo from '../assets/dark-logoB.png';
 
  function NewUser(){
 
+   const history = useHistory()
    const [credentiels,setCredentiels] =useState({
         email :"",
         password :"",
         name :""
     })
    
-   const [adminCheck ,setadminCheck] =useState(false)
    const [showMessage,setShowMessage]=useState(false)
    const [message ,setMessage]=useState("")
 
@@ -22,19 +23,20 @@ import Logo from '../assets/dark-logoB.png';
       })
    }
 
-   const handleCheck =(event) =>{
-       setadminCheck(current => !current) 
-   }
  
    const handleSubmit = async(event) => {
          event.preventDefault()
          try{
-         await register(credentiels,adminCheck)
+         await register(credentiels)
            .then((data)=>{ 
              (data.name==="ValidationError") ? setMessage("email existe dèja") 
                           : setMessage(data.message)
              
              setShowMessage(true)
+             setTimeout(()=>{
+               history.replace("/")
+            },500)
+             
            })
 
          }catch(error){
@@ -49,8 +51,9 @@ import Logo from '../assets/dark-logoB.png';
               <div className="container">
                   <div className="row">
                      <div className="col-2"></div>
-                     <div style={{borderTopLeftRadius :"20px",borderTopRightRadius:"20px",backgroundColor : "#ffd7d7"}} className="col-8">
-                        <h2 style={{margin : "0px",color:"#4e5166",paddingTop : "15px",paddingBottom:"15px"}}> 
+                     <div style={{borderTopLeftRadius :"20px",borderTopRightRadius:"20px",backgroundColor : "#ffd7d7"}} 
+                          className="col-8">
+                        <h2 style={{margin : "0px",color:"#4e5166",paddingTop : "15px",paddingBottom:"15px",textAlign:"center"}}> 
                            New Employee 
                         </h2>
                      </div>
@@ -89,8 +92,9 @@ import Logo from '../assets/dark-logoB.png';
                                                 Submit
                            </button>
                         </div> 
-                     
-                        <p>{showMessage && message}</p>
+                        <div style={{textAlign:"center",marginTop:"30px"}}>
+                           <p style={{color:"red"}}>{showMessage && message}</p>
+                        </div>
                      </form>
                      <div className="col-2 m-0"></div>                
                   </div>         

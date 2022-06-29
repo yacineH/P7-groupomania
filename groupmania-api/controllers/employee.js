@@ -19,7 +19,6 @@ exports.signup = (req, res, next) => {
        const employee= new Employee({
            email : req.body.email,
            name : req.body.name,
-           admin : req.body.admin,
            password : hash
        });
        employee.save()

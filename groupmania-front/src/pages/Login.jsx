@@ -61,7 +61,7 @@ import Logo from '../assets/dark-logoB.png';
                   
                   <form className="col-5"  
                         onSubmit={handleSubmit}>
-                     <div className="row">
+                     <div style={{marginTop:"35px"}} className="row">
                         <div className="form-group col-12">
                            <label htmlFor="email">Email</label>
                            <input type="email" name="email" placeholder="name@example.com" 
@@ -80,8 +80,10 @@ import Logo from '../assets/dark-logoB.png';
                                     Login
                            </button>
                         </div>
-                        {isError ? <p>{msgError}</p> : ""}
                      </div>
+                     <div style={{marginTop:"15px",textAlign:"center"}}>
+                          {isError ? <p style={{color:"red"}}>{msgError}</p> : ""}
+                        </div>
                   </form>
                </div>            
                </div>

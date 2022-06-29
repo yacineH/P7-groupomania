@@ -56,7 +56,7 @@ export function authenticate(credentiels){
     return id
   }
 
-  export function register(credentiels,adm){
+  export function register(credentiels){
     return fetch(URL_SIGN,{
       method : "POST",
       headers :{
@@ -66,8 +66,7 @@ export function authenticate(credentiels){
       body : JSON.stringify({
         email : credentiels.email,
         password : credentiels.password,
-        name : credentiels.name,
-        admin : adm
+        name : credentiels.name
       })
     })
     .then(res=> res.json())

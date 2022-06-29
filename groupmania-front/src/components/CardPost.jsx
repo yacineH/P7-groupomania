@@ -5,15 +5,16 @@ export default function CardPost({post}) {
 
   const imgUrl = post.imageUrl ? post.imageUrl : NoImage
 
-  return (<div  className="divCard">
-            <div className='divImg'>
-              <img src={imgUrl} alt="post.message" />
+  return (<div style={{margin : "20px",border:"1px solid #ffd7d7",display: "flex",borderRadius: "20px"}}>
+            <div style={{width: "250px",height: "200px",marginRight: "30px"}}>
+              <img style={{borderTopLeftRadius: "20px",borderBottomLeftRadius: "20px",width: "250px",height: "200px"}} src={imgUrl} alt="post.message" />
             </div>
             
-            <div className='divContent'>
-              <p><span>Posté le : </span>{new Date(post.datePost).toLocaleString()}</p>
-              <p className="card-text">{post.message.substring(0,100)} ...</p>                             
+            <div style={{paddingTop: "25px",paddingRight: "15px"}}>
+              <p style={{color :"#4E5166",fontSize: "16px"}}>
+                 <span style={{color: "black"}}>Posté le : </span>{new Date(post.datePost).toLocaleString()}
+              </p>
+              <p style={{color :"#4E5166",fontSize: "16px"}}>{post.message.substring(0,100)} ...</p>                             
             </div>
-           
           </div>)
 }

@@ -3,7 +3,6 @@ import {useHistory} from 'react-router-dom';
 import Header from "../components/Header";
 import employeeContext from "../contexts/employeeContext";
 import Footer from "../components/Footer"; 
-import "../utils/styles/NewPost.css";
 import {persistPost} from "../services/postAPI"
 import NonImage from "../assets/no-image.jpg"
 
@@ -62,49 +61,58 @@ function NewPost(){
     }
 
     return (<div>
-                <Header/>
-                <form onSubmit={handleSubmit}>
-                    <h2>New Post</h2>
-                    <div className="form-group row mt-2">
-                        <label htmlFor="employeeId" className="col-sm-2 col-form-label">Id</label>
-                        <div className="col-sm-10">
-                          <input className="form-control" type="text" id="employeeId"                         
-                                 name="employeeId" value={employeeId} onChange={handleChange}  readOnly/>
-                        </div>
+             <Header/>
+             <form style={{marginBottom:"200px",marginTop:"80px"}} className="container" onSubmit={handleSubmit}>
+                <div style ={{border:"1px solid #ffd7d7",borderTopRightRadius:"20px",borderTopLeftRadius:"20px",backgroundColor:"#ffd7d7"}}  
+                     className="row"> 
+                    <div className="col-12">                
+                      <h2 style={{textAlign:"center",margin:"0px",color:"#4e5166"}}>
+                        New Post
+                      </h2>
                     </div>
-                    <div className="form-group row mt-2">
-                        <label htmlFor="title" className="col-sm-2 col-form-label">Titre</label>
-                        <div className="col-sm-10">
-                          <input type="text" className="form-control" 
-                               id="title" name="title" aria-describedby="titleHelp" onChange={handleChange} required/>                        
-                        </div>
+                </div>               
+                <div style={{borderLeft:"1px solid #ffd7d7", borderRight:"1px solid #ffd7d7",paddingTop:"50px"}} className="row"> 
+                    <label htmlFor="employeeId" className="col-4 col-form-label">Id</label>
+                    <input className="form-control col-7" type="text" id="employeeId"                         
+                        name="employeeId" value={employeeId} onChange={handleChange}  readOnly/>
+                </div> 
+                <div style={{borderLeft:"1px solid #ffd7d7", borderRight:"1px solid #ffd7d7"}} className="row"> 
+                    <label htmlFor="title" className="col-4 col-form-label mt-4">
+                        Titre
+                    </label>
+                    <input type="text" className="form-control col-7 mt-4" 
+                        id="title" name="title" aria-describedby="titleHelp" onChange={handleChange} required/>                        
+                </div> 
+                <div style={{borderLeft:"1px solid #ffd7d7", borderRight:"1px solid #ffd7d7"}} className="row">
+                    <label htmlFor="message" className="col-4 mt-4 col-form-label">Message</label>
+                    <textarea  className="form-control col-7 mt-4" id="message" name="message" rows="5" 
+                            onChange={handleChange} required></textarea>
+                </div> 
+                <div style={{borderLeft:"1px solid #ffd7d7", borderRight:"1px solid #ffd7d7"}} className="row">
+                    <label htmlFor="image" className="col-4 mt-4 col-form-label">Image</label>
+                    <input type="file" className="form-control mt-4 col-7" accept=".png,.jpeg, .jpg" 
+                        id="image" name="image" onChange={handleChange}/>
+                </div>
+                <div style={{borderLeft:"1px solid #ffd7d7", borderRight:"1px solid #ffd7d7"}} className="row">
+                    <label className="col-4 col-form-label mt-4"></label>
+                    <div className="col-7 mt-4">
+                    <img  style={{height:"100px"}} src={imageLocale} alt={currentPost.title}/>
                     </div>
-                    <div className="form-group row mt-2">
-                        <label htmlFor="message" className="col-sm-2 col-form-label">Message</label>
-                        <div className="col-sm-10">
-                           <textarea className="form-control" id="message" name="message" rows="5" 
-                                     onChange={handleChange} required></textarea>
-                        </div>
-                    </div>                
-                    <div className="form-group row mt-2">
-                        <label htmlFor="image" className="col-sm-2 col-form-label">Image</label>
-                        <div className="col-sm-10">
-                           <input type="file" className="form-control" accept=".png,.jpeg, .jpg" 
-                                  id="image" name="image" onChange={handleChange}/>
-                        </div>
+                </div>
+                <div style={{borderLeft:"1px solid #ffd7d7", borderRight:"1px solid #ffd7d7",borderBottomLeftRadius:"20px",borderBottomRightRadius:"20px", borderBottom:"1px solid #ffd7d7"}} 
+                     className="row">
+                    <div className="col-7">
                     </div>
-                    <div className="form-group row mt-2">
-                        <label className="col-sm-2 col-form-label"></label>
-                        <div className="col-sm-10">
-                            <img src={imageLocale} alt={currentPost.title}/>
-                        </div>
-
-                    </div> 
-                    <div className="divSubmit mt-6">
-                      <button type="submit">Submit</button>
+                    <div style={{paddingTop:"50px",paddingBottom:"50px"}} className="col-4">
+                        <button style={{borderRadius:"20px",color: "white",backgroundColor: "#fd2d01",padding: "5px",fontSize: "18px",border : "1px solid #ffd7d7",width: "150px"}} 
+                            type="submit">
+                                Submit
+                        </button>
                     </div>
-                </form>
-                <Footer/>
+                </div>
+                               
+             </form>
+             <Footer/>
             </div>
     )
 }

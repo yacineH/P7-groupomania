@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {AiTwotoneDislike,AiTwotoneLike} from 'react-icons/ai';
-import '../utils/styles/like.css';
+
 
 export default function Like({likes,dislikes}){
 
@@ -14,16 +14,16 @@ export default function Like({likes,dislikes}){
 
 
     return (
-        <div className="divCont">
-            <div className="divLik">
+        <div style={{display: "flex",flexDirection: "row",alignItems: "center"}}>
+            <div style={{margin: "10px"}}>
                 <span>{nbLike}</span>
-                <button onClick={handleClick}>
+                <button style={{margin: "3px",border: "0px"}} onClick={handleClick}>
                   <AiTwotoneLike/>
                 </button>
             </div>
-            <div className="divDislik">
+            <div>
                <span>{nbDislike}</span>
-               <button onClick={handleClick}>
+               <button style={{margin: "3px",border: "0px"}} onClick={handleClick}>
                 <AiTwotoneDislike/>
                </button>               
             </div>

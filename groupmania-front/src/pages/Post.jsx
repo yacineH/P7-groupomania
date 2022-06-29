@@ -6,7 +6,6 @@ import Footer from "../components/Footer";
 import {findPost,deletePost,updatePost} from "../services/postAPI";
 import AdminContext from "../contexts/adminContext";
 import EmployeeContext from "../contexts/employeeContext";
-import '../utils/styles/post.css';
 import Like from "../components/Like";
 import NoImage from "../assets/no-image.jpg";
 
@@ -97,68 +96,92 @@ export default function Post(){
                   </div>
                 </div>
               ) :              
-              ( <div>                   
-                  <form className="form">                                  
-                    <div className="form-group row">
-                      <div className="col-12">
+              (                   
+                  <form className="container">                                  
+                    <div style={{marginTop:"80px"}} className="row">
+                      <div className="col-2"></div>
+                      <div className="col-8">
                         { currentPost.imageUrl === "" ?
-                            <img className="image" src={NoImage} alt={currentPost._id}/>
-                          : <img className="image" src={currentPost.imageUrl} alt={currentPost._id}/>
+                            <img  style={{width:"100%",height:"350px"}} src={NoImage} alt={currentPost._id}/>
+                          : <img style={{width:"100%",height:"350px"}}  src={currentPost.imageUrl} alt={currentPost._id}/>
                         } 
-                      </div>        
+                      </div>
+                      <div className="col-2"></div>        
                     </div>
                     
-                    <div className="form-group row mt-2">
-                      <label htmlFor="title" className="col-sm-3 col-form-label"> Titre</label>
-                      <div className="col-sm-9">
-                        <input type="text" name="title" className="form-control" id="title" 
-                               value={currentPost.title} onChange={handleChange} />
-                      </div>                     
+                    <div className="row mt-4">
+                      <div className="col-2"></div>
+                      <div className="col-8">
+                        <div className="row">
+                        <label htmlFor="title" className="col-3 col-form-label"> Titre</label>
+                        <input type="text" name="title" className="form-control col-8" id="title" 
+                                  value={currentPost.title} onChange={handleChange} />
+                        </div>                        
+                      </div>
+                      <div className="col-2"></div>                     
                     </div>
                     
-                    <div className="form-group row mt-2">
-                      <label htmlFor="message" className="col-sm-3 col-form-label">Message</label>
-                      <div className="col-sm-9">
-                      <textarea className="form-control" id="message" name="message" rows="10" 
-                                 required onChange={handleChange} value={currentPost.message}/>
-                      </div>                    
+                    <div className="row mt-4">
+                      <div className="col-2"></div>
+                      <div className="col-8">
+                        <div className="row">
+                           <label htmlFor="message" className="col-3 col-form-label">Message</label>
+                           <textarea className="form-control col-8" id="message" name="message" rows="10" 
+                                  required onChange={handleChange} value={currentPost.message}/>
+                        </div>
+                      </div>
+                      <div className="col-2"></div>
                     </div>
                    
-                    <div className="form-group row mt-2">
-                      <label htmlFor="image" className="col-sm-3 col-form-label">Change Image</label>
-                      <div className="col-sm-9">
-                        <input type="file" className="form-control" accept=".png,.jpeg, .jpg" 
-                                id="image" name="image" onChange={handleChange} />
+                    <div className="row mt-4">
+                      <div className="col-2"></div>
+                      <div className="col-8">
+                        <div className="row">
+                          <label htmlFor="image" className="col-3 col-form-label">Change Image</label>                      
+                          <input type="file" className="form-control col-8" accept=".png,.jpeg, .jpg" 
+                                  id="image" name="image" onChange={handleChange} />                      
+                        </div>
                       </div>
+                      <div className="col-2"></div>
                     </div>
                      
-                    <div className="form-group row mt-2">
-                      <label className="col-sm-3 col-form-label"></label>
-                      <div className="col-sm-9">
-                          <img src={imageLocale} alt={currentPost.title}/>
+                    <div className="row mt-4">
+                      <div className="col-2"></div>
+                      <div className="col-8">
+                        <div className="row">
+                          <label className="col-3 col-form-label"></label>
+                          <div className="col-8">
+                            <img style={{width:"100%",height:"220px"}} src={imageLocale} alt={currentPost.title}/>                      
+                          </div>
+                        </div>
                       </div>
+                      <div className="col-2"></div>
                     </div> 
 
-                    <div className="form-group row mt-4">                       
-                          <div className="col-sm-6 divLike">
+                    <div style={{marginTop:"80px",marginBottom:"150px"}} className="row">                       
+                          <div className="col-2"></div>
+                          <div className="col-4">
                              <Like likes={currentPost.likes} dislikes={currentPost.dislikes}/>                        
                           </div>
-                          <div className="col-sm-6 divBouttons">
-                            <div>
-                              {currentPost.employeeId === employeeId &&
-                                <button className="btn btn-primary" onClick={handleUpdate}>Update</button>
-                              }
-                            </div>
-                            <div>
-                              { (isAdmin || currentPost.employeeId === employeeId) &&
-                                <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
-                              }
+                          <div className="col-4">
+                            <div className="row">
+                              <div className="col-6">
+                                {currentPost.employeeId === employeeId &&
+                                  <button className="btn btn-primary" onClick={handleUpdate}>Update</button>
+                                }
+                              </div>
+                              <div className="col-6">
+                                { (isAdmin || currentPost.employeeId === employeeId) &&
+                                  <button className="btn btn-danger" onClick={handleDelete}>Delete</button>
+                                }
+                              </div>
                             </div>
                           </div>
+                          <div className="col-2"></div>
                     </div>
 
                   </form>
-                </div>
+             
                 )}     
        
         <Footer/>
