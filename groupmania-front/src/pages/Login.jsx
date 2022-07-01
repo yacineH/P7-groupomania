@@ -37,10 +37,7 @@ import Logo from '../assets/dark-logoB.png';
             setIsAdmin(checkAdmin)
             setIsAuthenticated(true)            
             setEmployeeId(checkId)
-            setTimeout(()=>{
-               history.replace("home")
-            },2000)               
-            
+            history.replace("home")                          
         }catch(error){
             setIsError(true)
        }

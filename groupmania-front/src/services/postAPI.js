@@ -92,10 +92,35 @@ function updatePost(post){
       body : formData
     })
     .then((res)=>{
-        console.log(res)
         res.json()
     })
 }
 
-export {findPost,findPosts,persistPost,updatePost,deletePost}
+
+function fetchLike(id,vote,idEmployee){
+  
+  var chemin =new URL(URL_ALLPOSTS + `/${id}/like`)
+
+  return fetch(chemin,{
+       method : "POST",
+       headers :{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+       },
+      body :JSON.stringify({
+        employeeId : idEmployee,
+        like : vote
+      })
+    })
+    .then((res)=>{
+        console.log(res)
+        res.json()
+    })
+    .catch((err)=>console.log(err))
+
+}
+
+
+export {findPost,findPosts,persistPost,updatePost,deletePost,fetchLike}
 

@@ -19,34 +19,38 @@ export default function Posts(){
 
 
     useEffect(() => {
-
       const fetchAllPosts =async () =>{
-        const data = await findPosts()
-        if(data){
+        try{        
+         
+          const data = await findPosts()
+         
           data.sort((param1,param2)=>{
             return param2.datePost - param1.datePost
           })
-        }  
-        setPosts(data)
-        setIsLoading(false)
-        setIsAdmin(checkAdmin)
+          
+          setPosts(data)
+          setIsLoading(false)
+          setIsAdmin(checkAdmin)
+        }catch(error){
+          console.log(error)
+        }
       }
 
       fetchAllPosts()  
-    },[setIsAdmin])
+    })
 
     return (
         <div>
           <Header/>
           <div style={{display: "flex",justifyContent: "end",marginBottom: "20px"}}>
             <div style={{margin:"15px",color :"#4e5166"}}>
-              <Link  style={{color :"#4e5166",fontSize: "18px"}} to="/newPost">
+              <Link  style={{color :"#4e5166",fontSize: "18px",textDecoration:"none"}} to="/newPost">
                    New Post <BsFillFilePostFill/> 
               </Link>
             </div>                         
           </div>
           <div style={{marginBottom:"100px"}}>
-          <div style={{display:"flex",flexDirection: "column",flexWrap: "wrap"}}>            
+            <div style={{display:"flex",flexDirection: "column",flexWrap: "wrap"}}>            
                 { isLoading ? (
                   <div className="spinner-border" role="status">
                     <span className="sr-only">Loading...</span>

@@ -146,6 +146,10 @@ exports.likePost = (req, res, next) => {
     .then(post => {
       const id=req.body.employeeId; 
 
+     
+      console.log('body',req.body)
+      console.log('params',req.params)
+
       if(req.body.like === 1){
          if(!post.usersLiked.includes(id)){
             post.usersLiked.push(id);
@@ -185,8 +189,12 @@ exports.likePost = (req, res, next) => {
         usersDisliked :post.usersDisliked    
       };
 
+
+     // console.log('post',post)
+     // console.log('postObj',postObj)
+
       Post.updateOne({ _id: req.params.id }, { ...postObj, _id: req.params.id })
-       .then(() => res.status(200).json({ message: 'Sauce modifiée !'}))
+       .then(() => res.status(200).json({ message: 'Post modifiée !'}))
        .catch(error => res.status(400).json({ error }));
     })
     .catch(error => res.status(500).json({error}));

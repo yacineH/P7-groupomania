@@ -40,24 +40,14 @@ function NewPost(){
     }
 
     const handleSubmit =async (event) =>{
-       event.preventDefault()
-
-         await persistPost(currentPost)
-         .then((response)=>{
-            
-            if(response.status < 300)
-            {
-                setTimeout(()=>{
-                    history.replace("home")
-                },1000) 
-            }
-            else{
-                console.log("retour",response)
-            }
-         })
-         .catch(error=>console.log(error))
-      
-   
+         event.preventDefault()
+         
+         try{
+            await persistPost(currentPost)
+            history.replace("home")
+         }catch(error){
+            console.log(error)
+         }   
     }
 
     return (<div>

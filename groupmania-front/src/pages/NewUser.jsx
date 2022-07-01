@@ -27,17 +27,12 @@ import Logo from '../assets/dark-logoB.png';
    const handleSubmit = async(event) => {
          event.preventDefault()
          try{
-         await register(credentiels)
-           .then((data)=>{ 
-             (data.name==="ValidationError") ? setMessage("email existe dèja") 
-                          : setMessage(data.message)
-             
+            const data = await register(credentiels)
+
+             if(data.name === "ValidationError")  setMessage("email existe dèja")
+             else setMessage(data.message)
              setShowMessage(true)
-             setTimeout(()=>{
-               history.replace("/")
-            },500)
-             
-           })
+             history.replace("/")
 
          }catch(error){
             console.log(error)

@@ -8,6 +8,7 @@ import AdminContext from "../contexts/adminContext";
 import EmployeeContext from "../contexts/employeeContext";
 import Like from "../components/Like";
 import NoImage from "../assets/no-image.jpg";
+import { fetchLike } from "../services/postAPI";
 
 
 
@@ -19,26 +20,18 @@ export default function Post(){
     const {employeeId} = useContext(EmployeeContext)
     const {id} = useParams()
     const [imageLocale,setImageLocale]=useState(NoImage)
-    const [currentPost,setCurrentPost] = useState({
-      id : id,
-      employeeId: employeeId,
-      title: "",
-      message :"",
-      image : null
-    })
+    const [currentPost,setCurrentPost] = useState({})
 
 
 
     useEffect(()=>{
-      
-      const fetchPost = async ()=>{           
-          const data = await findPost(id)
-          setCurrentPost(data)
+      const fetchPost = async ()=>{          
+          const data= await findPost(id)
+          setCurrentPost(data)          
           setIsLoading(false)
       }
-      
       fetchPost()
-    },[id])
+    })
     
 
     const handleDelete =async (event) =>{
@@ -85,6 +78,63 @@ export default function Post(){
         console.log(error)
        }
     }
+
+    
+    const handleCallBack =async (name) =>{
+
+      if(name === "likes"){  
+        if(!currentPost.usersLiked.includes(employeeId) && !currentPost.usersDisliked.includes(employeeId)){
+          const res = await fetchLike(id,1,employeeId)
+          console.log(res)
+          setCurrentPost({...currentPost,
+            [name] : currentPost.likes +1
+          })
+          //if(res.ok) setTLike(tLike => tLike.push(employeeId))
+        }               
+        else{
+          const res = await fetchLike(id,0,employeeId)
+          console.log(res)
+          setCurrentPost({...currentPost,
+              [name] : currentPost.likes - 1
+          })
+          // if(res.ok) setTLike(tLike => {
+          //     for( var i = 0; i < tLike.length; i++){ 
+          //         if ( tLike[i] === employeeId) {                     
+          //             tLike.splice(i, 1); 
+          //         }                    
+          //     }
+          // })
+        }
+      
+      }
+      else{
+          if(!currentPost.usersLiked.includes(employeeId) && !currentPost.usersDisliked.includes(employeeId)){
+             const res= await fetchLike(id,-1,employeeId)
+             console.log(res)
+             setCurrentPost({...currentPost,
+              [name] : currentPost.dislikes +1
+            })
+            //if(res.ok) setTDislike(tDislike => tDislike.push(employeeId))
+          }
+          else{
+              const res = await fetchLike(id,0,employeeId)
+              console.log(res)
+              setCurrentPost({...currentPost,
+                [name] : currentPost.dislikes -1
+              })
+              // if(res.ok) setTDislike(tDislike =>{
+              //     for( var i = 0; i < tDislike.length; i++){ 
+              //         if ( tDislike[i] === employeeId) {                     
+              //             tDislike.splice(i, 1); 
+              //         }                    
+              //     }
+              // })
+          }
+      }
+}
+
+
+
 
     return (
        <div>
@@ -161,12 +211,12 @@ export default function Post(){
                     <div style={{marginTop:"80px",marginBottom:"150px"}} className="row">                       
                           <div className="col-2"></div>
                           <div className="col-4">
-                             <Like likes={currentPost.likes} dislikes={currentPost.dislikes}/>                        
+                             <Like likes={currentPost.likes} dislikes={currentPost.dislikes} callBack={handleCallBack}/>                        
                           </div>
                           <div className="col-4">
                             <div className="row">
                               <div className="col-6">
-                                {currentPost.employeeId === employeeId &&
+                                {(isAdmin || currentPost.employeeId === employeeId) &&
                                   <button className="btn btn-primary" onClick={handleUpdate}>Update</button>
                                 }
                               </div>

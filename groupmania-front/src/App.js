@@ -10,7 +10,7 @@ import AdminContext from './contexts/adminContext';
 import EmployeeContext from './contexts/employeeContext';
 import {checkAdmin, checkId, isAuth} from './services/authAPI';
 import NewPost from './pages/NewPost';
-//import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './components/PrivateRoute';
 
 
 function App() {
@@ -26,10 +26,10 @@ function App() {
       <div className='container h-100'>
           <Router>
             <Route path="/" exact component={Login}/> 
-            <Route path="/home"  component={Posts}/>
-            <Route path="/post/:id" component={Post}/>
             <Route path="/register" component={NewUser}/>
-            <Route path="/newPost" component={NewPost}/>             
+            <PrivateRoute path="/home"  component={Posts}/>
+            <PrivateRoute path="/post/:id" component={Post}/>
+            <PrivateRoute path="/newPost" component={NewPost}/>             
           </Router>
       </div>
       </EmployeeContext.Provider>
