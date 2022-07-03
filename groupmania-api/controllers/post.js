@@ -161,7 +161,7 @@ exports.likePost = (req, res, next) => {
           const index = post.usersLiked.indexOf(id);
           if(index>-1){
              post.usersLiked.splice(index,1);
-             post.likes = sauce.likes - 1;
+             post.likes = post.likes - 1;
           }
         }
         if(post.usersDisliked.includes(id)){

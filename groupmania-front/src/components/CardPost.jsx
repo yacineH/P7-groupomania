@@ -15,6 +15,8 @@ export default function CardPost({post}) {
                  <span style={{color: "black"}}>Posté le : </span>{new Date(post.datePost).toLocaleString()}
               </p>
               <p style={{color :"#4E5166",fontSize: "16px"}}>{post.message.substring(0,100)} ...</p>                             
+              <p style={{color :"#4E5166",fontSize: "16px"}}>likes : {post.likes}</p>
+              <p style={{color :"#4E5166",fontSize: "16px"}}>dislikes : {post.dislikes}</p>
             </div>
           </div>)
 }

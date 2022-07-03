@@ -21,24 +21,20 @@ export default function Post(){
     const {id} = useParams()
     const [imageLocale,setImageLocale]=useState(NoImage)
     const [currentPost,setCurrentPost] = useState({})
-    const [updatedPost,setUpdatedPost] = useState({})
 
+    const [currentLikes,setCurrentLikes] =useState(0)
+    const [currentDislikes,setCurrentDislikes] =useState(0)
 
     useEffect(()=>{
       const fetchPost = async ()=>{          
           const data= await findPost(id)
-          setCurrentPost(data) 
-          setUpdatedPost(data)         
+          setCurrentPost(data)       
           setIsLoading(false)
-
-
-          console.log('admin',isAdmin)
-          console.log('employeeParam',employeeId)
+          setCurrentLikes(currentPost.likes)
+          setCurrentDislikes(currentPost.dislikes)
       }  
       fetchPost()
-    },[id])
-    
-    console.log('current',currentPost)
+    },[id,currentLikes,currentDislikes,currentPost.likes,currentPost.dislikes])
 
     const handleDelete =async (event) =>{
       event.preventDefault()
@@ -61,12 +57,12 @@ export default function Post(){
                 setImageLocale(e.target.result)
             }
 
-            setUpdatedPost({...updatedPost,
+            setCurrentPost({...currentPost,
                 [name] : event.target.files[0]
             })
         }
         else{
-            setUpdatedPost({...updatedPost,
+            setCurrentPost({...currentPost,
                 [name] : value
             })
         }
@@ -77,7 +73,7 @@ export default function Post(){
         event.preventDefault()
 
        try{
-         await updatePost(updatedPost)
+         await updatePost(currentPost)
           .then(()=>history.replace("/home"))
 
        }catch(error){
@@ -91,31 +87,22 @@ export default function Post(){
       if(name === "likes"){  
         if(!currentPost.usersLiked.includes(employeeId) && !currentPost.usersDisliked.includes(employeeId)){
           await fetchLike(id,1,employeeId)
-          setCurrentPost({...currentPost,
-            [name] : currentPost.likes +1
-          })
+          setCurrentLikes(currentLikes + 1)
         }               
-        else{
+        else if (currentPost.usersLiked.includes(employeeId)){
          await fetchLike(id,0,employeeId)
-          setCurrentPost({...currentPost,
-              [name] : currentPost.likes - 1
-          })
+         setCurrentLikes(currentLikes - 1)
         }
       
       }
       else{
           if(!currentPost.usersLiked.includes(employeeId) && !currentPost.usersDisliked.includes(employeeId)){
              await fetchLike(id,-1,employeeId)
-             setCurrentPost({...currentPost,
-              [name] : currentPost.dislikes +1
-            })
-
+             setCurrentDislikes(currentDislikes + 1)
           }
-          else{
+          else if(currentPost.usersDisliked.includes(employeeId)){
               await fetchLike(id,0,employeeId)
-              setCurrentPost({...currentPost,
-                [name] : currentPost.dislikes -1
-              })
+              setCurrentDislikes(currentDislikes - 1)
           }
       }
 }
@@ -195,7 +182,7 @@ export default function Post(){
                     <div style={{marginTop:"80px",marginBottom:"150px"}} className="row">                       
                           <div className="col-2"></div>
                           <div className="col-4">
-                             <Like likes={currentPost.likes} dislikes={currentPost.dislikes} callBack={handleCallBack}/>                        
+                             <Like likes={currentLikes} dislikes={currentDislikes} callBack={handleCallBack}/>                        
                           </div>
                           <div className="col-4">
                             <div className="row">
