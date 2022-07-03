@@ -117,7 +117,7 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .then(post => {
-      if(post.employeeId === req.employeeId){
+      if((post.employeeId === req.employeeId)||(req.admin)){
         const filename = post.imageUrl.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
           Post.deleteOne({ _id: req.params.id })

@@ -15,10 +15,12 @@ module.exports = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.JWTPASS);
     const employeeIdToken = decodedToken.employee.id;
-
+    const employeeAdminToken =decodedToken.employee.admin;
+    
     Employee.findOne({_id :employeeIdToken})
      .then(employee=>{
       req.employeeId = employeeIdToken;
+      req.admin =employeeAdminToken; 
       next();
      })
      .catch(error => res.status(500).json({error}) );

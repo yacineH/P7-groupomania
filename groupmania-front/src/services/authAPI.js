@@ -1,7 +1,7 @@
 import {URL_LOGIN,URL_SIGN} from '../utils/config';
 import jwtDecode from 'jwt-decode';
 
-const token = window.localStorage.getItem("token")
+
 
 export function authenticate(credentiels){
     return fetch(URL_LOGIN,{
@@ -17,18 +17,14 @@ export function authenticate(credentiels){
     })
     .then(res=>res.json())
     .then(data => {
-      if(data.token){
         window.localStorage.setItem("token",data.token)
-      }
-      else{
-        throw new Error()
-      }
     })
-    .catch(error =>{throw new Error()})
+    .catch(error =>{console.console.log(error)})
   }
 
  
- export function isAuth(){  
+ export function isAuth(){ 
+  const token = window.localStorage.getItem("token")
     if(token){
       const {exp} = jwtDecode(token)
 
@@ -41,14 +37,15 @@ export function authenticate(credentiels){
   }
 
   export function checkAdmin(){
-
+    const token = window.localStorage.getItem("token")
     if(token){
        return jwtDecode(token).employee.admin
     } 
     return false
   }
 
-  export function checkId(){    
+  export function checkId(){ 
+    const token = window.localStorage.getItem("token")   
     let id =""
     if(token){
        id = jwtDecode(token).employee.id
@@ -57,6 +54,7 @@ export function authenticate(credentiels){
   }
 
   export function register(credentiels){
+   
     return fetch(URL_SIGN,{
       method : "POST",
       headers :{

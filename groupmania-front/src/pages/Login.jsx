@@ -34,10 +34,13 @@ import Logo from '../assets/dark-logoB.png';
        event.preventDefault()
         try{
             await authenticate(credentiels)
+
             setIsAdmin(checkAdmin)
             setIsAuthenticated(true)            
             setEmployeeId(checkId)
-            history.replace("home")                          
+            
+            history.replace("home")
+                                   
         }catch(error){
             setIsError(true)
        }
@@ -69,7 +72,7 @@ import Logo from '../assets/dark-logoB.png';
                            <label htmlFor="password">Password</label>
                            <input type="password" className="form-control" 
                                  id="password" name="password" 
-                                 required onChange={handleChange}/>
+                                 required onChange={handleChange} autoComplete="off"/>
                         </div>
                         <div className="col-12 mt-5 text-center">
                            <button style={{ color: "white",backgroundColor:"#FD2D01",width: "120px",height: "45px",fontSize: "18px",borderRadius: "15px",border:"1px solid #ffd7d7"}} 

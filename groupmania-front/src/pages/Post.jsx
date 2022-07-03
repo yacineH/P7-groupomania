@@ -21,18 +21,24 @@ export default function Post(){
     const {id} = useParams()
     const [imageLocale,setImageLocale]=useState(NoImage)
     const [currentPost,setCurrentPost] = useState({})
-
+    const [updatedPost,setUpdatedPost] = useState({})
 
 
     useEffect(()=>{
       const fetchPost = async ()=>{          
           const data= await findPost(id)
-          setCurrentPost(data)          
+          setCurrentPost(data) 
+          setUpdatedPost(data)         
           setIsLoading(false)
-      }
+
+
+          console.log('admin',isAdmin)
+          console.log('employeeParam',employeeId)
+      }  
       fetchPost()
-    })
+    },[id])
     
+    console.log('current',currentPost)
 
     const handleDelete =async (event) =>{
       event.preventDefault()
@@ -55,12 +61,12 @@ export default function Post(){
                 setImageLocale(e.target.result)
             }
 
-            setCurrentPost({...currentPost,
+            setUpdatedPost({...updatedPost,
                 [name] : event.target.files[0]
             })
         }
         else{
-            setCurrentPost({...currentPost,
+            setUpdatedPost({...updatedPost,
                 [name] : value
             })
         }
@@ -71,7 +77,7 @@ export default function Post(){
         event.preventDefault()
 
        try{
-         await updatePost(currentPost)
+         await updatePost(updatedPost)
           .then(()=>history.replace("/home"))
 
        }catch(error){
@@ -84,59 +90,37 @@ export default function Post(){
 
       if(name === "likes"){  
         if(!currentPost.usersLiked.includes(employeeId) && !currentPost.usersDisliked.includes(employeeId)){
-          const res = await fetchLike(id,1,employeeId)
-          console.log(res)
+          await fetchLike(id,1,employeeId)
           setCurrentPost({...currentPost,
             [name] : currentPost.likes +1
           })
-          //if(res.ok) setTLike(tLike => tLike.push(employeeId))
         }               
         else{
-          const res = await fetchLike(id,0,employeeId)
-          console.log(res)
+         await fetchLike(id,0,employeeId)
           setCurrentPost({...currentPost,
               [name] : currentPost.likes - 1
           })
-          // if(res.ok) setTLike(tLike => {
-          //     for( var i = 0; i < tLike.length; i++){ 
-          //         if ( tLike[i] === employeeId) {                     
-          //             tLike.splice(i, 1); 
-          //         }                    
-          //     }
-          // })
         }
       
       }
       else{
           if(!currentPost.usersLiked.includes(employeeId) && !currentPost.usersDisliked.includes(employeeId)){
-             const res= await fetchLike(id,-1,employeeId)
-             console.log(res)
+             await fetchLike(id,-1,employeeId)
              setCurrentPost({...currentPost,
               [name] : currentPost.dislikes +1
             })
-            //if(res.ok) setTDislike(tDislike => tDislike.push(employeeId))
+
           }
           else{
-              const res = await fetchLike(id,0,employeeId)
-              console.log(res)
+              await fetchLike(id,0,employeeId)
               setCurrentPost({...currentPost,
                 [name] : currentPost.dislikes -1
               })
-              // if(res.ok) setTDislike(tDislike =>{
-              //     for( var i = 0; i < tDislike.length; i++){ 
-              //         if ( tDislike[i] === employeeId) {                     
-              //             tDislike.splice(i, 1); 
-              //         }                    
-              //     }
-              // })
           }
       }
 }
 
-
-
-
-    return (
+   return (
        <div>
          <Header/>          
             {isLoading ? (

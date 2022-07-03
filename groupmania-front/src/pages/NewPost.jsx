@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import {useHistory} from 'react-router-dom';
 import Header from "../components/Header";
-import employeeContext from "../contexts/employeeContext";
+import EmployeeContext from "../contexts/employeeContext";
 import Footer from "../components/Footer"; 
 import {persistPost} from "../services/postAPI"
 import NonImage from "../assets/no-image.jpg"
@@ -9,13 +9,15 @@ import NonImage from "../assets/no-image.jpg"
 function NewPost(){
 
     const history = useHistory()
-    const {employeeId} = useContext(employeeContext)
+    const {employeeId} = useContext(EmployeeContext)
+
     const [currentPost,setCurrentPost] =useState({
         employeeId : employeeId,
         title :"",
         message :"",
         image : null
     })
+
     const [imageLocale,setImageLocale]=useState(NonImage)
 
     const handleChange = (event)=>{

@@ -1,43 +1,31 @@
-import React,{useState,useEffect,useContext} from "react";
+import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 
 import CardPost from "../components/CardPost";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import {findPosts} from "../services/postAPI"
-import AdminContext from "../contexts/adminContext";
-import { checkAdmin } from "../services/authAPI";
 import { BsFillFilePostFill } from "react-icons/bs";
 
 
 
 export default function Posts(){
 
-    const [posts,setPosts] = useState(null)
+    const [posts,setPosts] = useState([])
     const [isLoading,setIsLoading] = useState(true)
-    const {setIsAdmin} =useContext(AdminContext)
-
 
     useEffect(() => {
-      const fetchAllPosts =async () =>{
-        try{        
-         
+      const fetchAllPosts =async() => {      
           const data = await findPosts()
-         
-          data.sort((param1,param2)=>{
-            return param2.datePost - param1.datePost
-          })
-          
+          setPosts(data.sort((param1,param2)=>{
+                     return param2.datePost - param1.datePost
+                    })
+          ) 
           setPosts(data)
           setIsLoading(false)
-          setIsAdmin(checkAdmin)
-        }catch(error){
-          console.log(error)
-        }
       }
-
-      fetchAllPosts()  
-    })
+      fetchAllPosts() 
+    },[])
 
     return (
         <div>
@@ -56,11 +44,11 @@ export default function Posts(){
                     <span className="sr-only">Loading...</span>
                    </div>
                    ) : 
-                   posts.map(post=>( 
+                  (posts && posts.map(post=>( 
                        <Link style={{ textDecoration: "none"}} to={`/post/${post._id}`} key={post._id}>
                          <CardPost  post={post} />
                        </Link>                    
-                   ),0)
+                   ),0))
                 }
   
             </div>

@@ -1,9 +1,9 @@
 import {URL_ALLPOSTS} from '../utils/config'
 
-const token = window.localStorage.getItem('token') 
+
 
 function findPosts(){
-
+  const token = window.localStorage.getItem('token') 
    return fetch(URL_ALLPOSTS,{
         method :'GET',
         headers : {
@@ -12,10 +12,12 @@ function findPosts(){
         }
     })
     .then((res)=>res.json())
+    .catch(error =>console.log(error))
 }
 
 
 function findPost(id){
+  const token = window.localStorage.getItem('token') 
    const chemin =URL_ALLPOSTS +'/'+id
    return fetch(chemin,{
         method : "GET",
@@ -30,7 +32,7 @@ function findPost(id){
 
 function persistPost(post){
 
-
+  const token = window.localStorage.getItem('token') 
   const formData =new FormData()
   
   formData.append('post' ,JSON.stringify({
@@ -53,6 +55,7 @@ function persistPost(post){
 
 
 function deletePost(id,empId){
+  const token = window.localStorage.getItem('token') 
   var chemin =new URL(URL_ALLPOSTS + "/" +id)
 
   return fetch(chemin,
@@ -63,14 +66,13 @@ function deletePost(id,empId){
        }
     })
     .then((res)=>{
-        console.log(res)
         res.json()
     })
 }
 
 
 function updatePost(post){
-  
+  const token = window.localStorage.getItem('token') 
   const formData =new FormData()
 
   formData.append('post',JSON.stringify({
@@ -98,7 +100,7 @@ function updatePost(post){
 
 
 function fetchLike(id,vote,idEmployee){
-  
+  const token = window.localStorage.getItem('token') 
   var chemin =new URL(URL_ALLPOSTS + `/${id}/like`)
 
   return fetch(chemin,{
@@ -114,7 +116,6 @@ function fetchLike(id,vote,idEmployee){
       })
     })
     .then((res)=>{
-        console.log(res)
         res.json()
     })
     .catch((err)=>console.log(err))
