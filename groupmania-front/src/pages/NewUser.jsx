@@ -2,8 +2,52 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { register } from '../services/authAPI'
 import Logo from '../assets/dark-logoB.png'
+import styled from 'styled-components'
 
-function NewUser() {
+const DivLogo = styled.div`
+  display: flex;
+  justify-content: center;
+`
+const StyledImage = styled.img`
+  width: 250px;
+  height: 200px;
+`
+const DivH2 = styled.div`
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #ffd7d7;
+`
+const StyledH2 = styled.h2`
+  margin: 0px;
+  color: #4e5166;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+`
+const StyledForm = styled.form`
+  border: 1px solid #ffd7d7;
+  height: 350px;
+`
+const DivButton = styled.div`
+  margin-top: 35px;
+  text-align: end;
+  margin-right: 25px;
+`
+const StyledButton = styled.button`
+  color: white;
+  background-color: #fd2d01;
+  width: 150px;
+  height: 45px;
+  border-radius: 15px;
+  border: 1px solid #ffd7d7;
+  font-size: 18px;
+`
+const DivMessage = styled.div`
+  text-align: center;
+  margin-top: 30px;
+`
+
+export default function NewUser() {
   const history = useHistory()
   const [credentiels, setCredentiels] = useState({
     email: '',
@@ -38,48 +82,20 @@ function NewUser() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <img
-          style={{ width: '250px', height: '200px' }}
-          src={Logo}
-          alt="Logo-groupomania"
-        />
-      </div>
+      <DivLogo>
+        <StyledImage src={Logo} alt="Logo-groupomania" />
+      </DivLogo>
       <div className="container">
         <div className="row">
           <div className="col-2"></div>
-          <div
-            style={{
-              borderTopLeftRadius: '20px',
-              borderTopRightRadius: '20px',
-              backgroundColor: '#ffd7d7',
-            }}
-            className="col-8"
-          >
-            <h2
-              style={{
-                margin: '0px',
-                color: '#4e5166',
-                paddingTop: '15px',
-                paddingBottom: '15px',
-                textAlign: 'center',
-              }}
-            >
-              New Employee
-            </h2>
-          </div>
+          <DivH2 className="col-8">
+            <StyledH2>New Employee</StyledH2>
+          </DivH2>
           <div className="col-2"></div>
         </div>
         <div className="row">
           <div className="col-2 m-0"></div>
-          <form
-            style={{
-              border: '1px solid #ffd7d7',
-              height: '350px',
-            }}
-            className="col-8 m-0"
-            onSubmit={handleSubmit}
-          >
+          <StyledForm className="col-8 m-0" onSubmit={handleSubmit}>
             <div className="form-group row mt-4">
               <label htmlFor="name" className="col-4 col-form-label">
                 Nom
@@ -120,42 +136,16 @@ function NewUser() {
               />
             </div>
 
-            <div
-              style={{
-                marginTop: '35px',
-                textAlign: 'end',
-                marginRight: '25px',
-              }}
-            >
-              <button
-                style={{
-                  color: 'white',
-                  backgroundColor: '#FD2D01',
-                  width: '150px',
-                  height: '45px',
-                  borderRadius: '15px',
-                  border: '1px solid #ffd7d7',
-                  fontSize: '18px',
-                }}
-                type="submit"
-              >
-                Submit
-              </button>
-            </div>
-            <div
-              style={{
-                textAlign: 'center',
-                marginTop: '30px',
-              }}
-            >
+            <DivButton>
+              <StyledButton type="submit">Submit</StyledButton>
+            </DivButton>
+            <DivMessage>
               <p style={{ color: 'red' }}>{showMessage && message}</p>
-            </div>
-          </form>
+            </DivMessage>
+          </StyledForm>
           <div className="col-2 m-0"></div>
         </div>
       </div>
     </div>
   )
 }
-
-export default NewUser
