@@ -1,17 +1,18 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const FooterDiv = styled.footer`
+    border: 1px solid #ffd7d7;
+    padding-top: 8px;
+    margin: 0px;
+    background-color: #ffd7d7;
+    text-align: center;
+`
 
 export default function Footer() {
-      return (
-            <footer
-                  style={{
-                        border: '1px solid #ffd7d7',
-                        paddingTop: '8px',
-                        margin: '0px',
-                        backgroundColor: '#ffd7d7',
-                        textAlign: 'center',
-                  }}
-            >
-                  <p>Copyright © 2022-Tous droits résérvés</p>
-            </footer>
-      )
+    return (
+        <FooterDiv>
+            <p>Copyright © 2022-Tous droits résérvés</p>
+        </FooterDiv>
+    )
 }

@@ -1,54 +1,54 @@
 import React from 'react'
 import NoImage from '../assets/no-image.jpg'
+import styled from 'styled-components'
+
+const CardContainer = styled.div`
+    margin: 20px;
+    border: 1px solid #ffd7d7;
+    display: flex;
+    border-radius: 20px;
+`
+const CardDivImage = styled.div`
+    width: 250px;
+    height: 200px;
+    margin-right: 30px;
+`
+const StyledImage = styled.img`
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    width: 250px;
+    height: 200px;
+`
+const CardDivDescription = styled.div`
+    padding-top: 25px;
+    padding-right: 15px;
+`
+const StyledP = styled.p`
+    color: #4e5166;
+    font-size: 16px;
+`
+const StyledSpan = styled.span`
+    color: black;
+`
 
 export default function CardPost({ post }) {
-      const imgUrl = post.imageUrl ? post.imageUrl : NoImage
+    const imgUrl = post.imageUrl ? post.imageUrl : NoImage
 
-      return (
-            <div
-                  style={{
-                        margin: '20px',
-                        border: '1px solid #ffd7d7',
-                        display: 'flex',
-                        borderRadius: '20px',
-                  }}
-            >
-                  <div
-                        style={{
-                              width: '250px',
-                              height: '200px',
-                              marginRight: '30px',
-                        }}
-                  >
-                        <img
-                              style={{
-                                    borderTopLeftRadius: '20px',
-                                    borderBottomLeftRadius: '20px',
-                                    width: '250px',
-                                    height: '200px',
-                              }}
-                              src={imgUrl}
-                              alt="post.message"
-                        />
-                  </div>
+    return (
+        <CardContainer>
+            <CardDivImage>
+                <StyledImage src={imgUrl} alt="post.message" />
+            </CardDivImage>
 
-                  <div style={{ paddingTop: '25px', paddingRight: '15px' }}>
-                        <p style={{ color: '#4E5166', fontSize: '16px' }}>
-                              <span style={{ color: 'black' }}>
-                                    Posté le :{' '}
-                              </span>
-                              {new Date(post.datePost).toLocaleString()}
-                        </p>
-                        <p style={{ color: '#4E5166', fontSize: '16px' }}>
-                              {post.message.substring(0, 100)} ...
-                        </p>
-                        <p style={{ color: '#4E5166', fontSize: '16px' }}>
-                              likes : {post.likes}
-                        </p>
-                        <p style={{ color: '#4E5166', fontSize: '16px' }}>
-                              dislikes : {post.dislikes}
-                        </p>
-                  </div>
-            </div>
-      )
+            <CardDivDescription>
+                <StyledP>
+                    <StyledSpan>Posté le : </StyledSpan>
+                    {new Date(post.datePost).toLocaleString()}
+                </StyledP>
+                <StyledP>{post.message.substring(0, 100)} ...</StyledP>
+                <StyledP>likes : {post.likes}</StyledP>
+                <StyledP>dislikes : {post.dislikes}</StyledP>
+            </CardDivDescription>
+        </CardContainer>
+    )
 }
