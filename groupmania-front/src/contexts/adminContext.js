@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react'
 
 export default React.createContext({
-    isAdmin : false,
-    setIsAdmin :(value) =>{}
-}) 
+      isAdmin: false,
+      setIsAdmin: (value) => {},
+})
