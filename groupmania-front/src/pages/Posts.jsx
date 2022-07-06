@@ -7,6 +7,7 @@ import Footer from '../components/Footer'
 import { findPosts } from '../services/postAPI'
 import { BsFillFilePostFill } from 'react-icons/bs'
 import styled from 'styled-components'
+import PaginComp from '../components/PaginComp'
 
 const DivNewPost = styled.div`
   display: flex;
@@ -35,19 +36,19 @@ export default function Posts() {
   const [posts, setPosts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
+  const [pageNumber, setPageNumber] = useState(1)
+  const [totalPages, setTotalPages] = useState(10)
+
   useEffect(() => {
     const fetchAllPosts = async () => {
-      const data = await findPosts()
-      setPosts(
-        data.sort((param1, param2) => {
-          return param2.datePost - param1.datePost
-        })
-      )
-      setPosts(data)
+      const data = await findPosts(pageNumber)
+
+      setPosts(data.posts)
+      setTotalPages(data.totalPage)
       setIsLoading(false)
     }
     fetchAllPosts()
-  }, [])
+  }, [pageNumber])
 
   return (
     <div>
@@ -83,41 +84,12 @@ export default function Posts() {
             )
           )}
         </DivPost>
-        <nav
-          style={{
-            border: '1px solid red',
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <ul class="pagination">
-            <li class="page-item disabled">
-              <a className="page-link" href=".">
-                Previous
-              </a>
-            </li>
-            <li class="page-item">
-              <a className="page-link" href=".">
-                1
-              </a>
-            </li>
-            <li className="page-item active" aria-current="page">
-              <a className="page-link" href=".">
-                2
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href=".">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href=".">
-                Next
-              </a>
-            </li>
-          </ul>
-        </nav>
+
+        <PaginComp
+          setPage={setPageNumber}
+          pageNumber={pageNumber}
+          totalPages={totalPages}
+        />
       </DivContent>
       <Footer />
     </div>

@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const fs= require('fs');
+const internal = require('stream');
 
 
 /**
@@ -9,8 +10,37 @@ const fs= require('fs');
  * @param {middleware} next 
  */
 exports.getAllPosts = (req, res, next) => {
+
+    const nbPage =parseInt(req.params.page)
+    const postsParPage =parseInt(process.env.POSTS_PAGE)
+
     Post.find()
-      .then(things => res.status(200).json(things))
+      .then(posts =>
+             {
+                //du plus recent au plus vieux
+                posts.sort((param1, param2) => {
+                return param2.datePost - param1.datePost
+                })
+                 
+                //debut pagination
+                const totalPages = posts.length % postsParPage === 0 
+                                        ? posts.length / postsParPage 
+                                        : parseInt(posts.length / postsParPage) + 1 
+
+                   
+                console.log('nbPage',nbPage)
+                console.log('postsparPage',postsParPage) 
+
+                var debutPage = nbPage === 1 ? 0 : (nbPage - 1) * postsParPage + 1
+                var finPage =  ((nbPage * postsParPage) <= posts.length) 
+                                   ? (nbPage * postsParPage)
+                                   : (posts.length) 
+               
+
+                var pagePosts = posts.slice(debutPage,finPage)
+                             
+                res.status(200).json({posts: pagePosts ,totalPage : totalPages})
+            })
       .catch(error => res.status(400).json({ error }));
 };
 
