@@ -27,9 +27,6 @@ exports.getAllPosts = (req, res, next) => {
                                         ? posts.length / postsParPage 
                                         : parseInt(posts.length / postsParPage) + 1 
 
-                   
-                console.log('nbPage',nbPage)
-                console.log('postsparPage',postsParPage) 
 
                 var debutPage = nbPage === 1 ? 0 : (nbPage - 1) * postsParPage + 1
                 var finPage =  ((nbPage * postsParPage) <= posts.length) 
