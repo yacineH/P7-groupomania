@@ -1,10 +1,11 @@
 import React from 'react'
 import NoImage from '../assets/no-image.jpg'
 import styled from 'styled-components'
+import colors from '../utils/colors'
 
 const CardContainer = styled.div`
   margin: 20px;
-  border: 1px solid #ffd7d7;
+  border: 1px solid ${colors.secondary};
   display: flex;
   border-radius: 20px;
 `
@@ -24,7 +25,7 @@ const CardDivDescription = styled.div`
   padding-right: 15px;
 `
 const StyledP = styled.p`
-  color: #4e5166;
+  color: ${colors.tertiare};
   font-size: 16px;
 `
 const StyledSpan = styled.span`

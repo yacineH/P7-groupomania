@@ -8,6 +8,7 @@ import { findPosts } from '../services/postAPI'
 import { BsFillFilePostFill } from 'react-icons/bs'
 import styled from 'styled-components'
 import PaginComp from '../components/PaginComp'
+import colors from '../utils/colors'
 
 const DivNewPost = styled.div`
   display: flex;
@@ -16,10 +17,10 @@ const DivNewPost = styled.div`
 `
 const DivLink = styled.div`
   margin: 15px;
-  color: #4e5166;
+  color: ${colors.tertiare};
 `
 const StyledLink = styled(Link)`
-  color: #4e5166;
+  color: ${colors.tertiare};
   font-size: 18px;
   text-decoration: none;
 `

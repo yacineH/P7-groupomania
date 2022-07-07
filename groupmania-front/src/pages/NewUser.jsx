@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom'
 import { register } from '../services/authAPI'
 import Logo from '../assets/dark-logoB.png'
 import styled from 'styled-components'
+import ButtonComp from '../components/ButtonComp'
+import colors from '../utils/colors'
 
 const DivLogo = styled.div`
   display: flex;
@@ -15,32 +17,23 @@ const StyledImage = styled.img`
 const DivH2 = styled.div`
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  background-color: #ffd7d7;
+  background-color: ${colors.secondary};
 `
 const StyledH2 = styled.h2`
   margin: 0px;
-  color: #4e5166;
+  color: ${colors.tertiare};
   padding-top: 15px;
   padding-bottom: 15px;
   text-align: center;
 `
 const StyledForm = styled.form`
-  border: 1px solid #ffd7d7;
+  border: 1px solid ${colors.secondary};
   height: 350px;
 `
 const DivButton = styled.div`
   margin-top: 35px;
   text-align: end;
   margin-right: 25px;
-`
-const StyledButton = styled.button`
-  color: white;
-  background-color: #fd2d01;
-  width: 150px;
-  height: 45px;
-  border-radius: 15px;
-  border: 1px solid #ffd7d7;
-  font-size: 18px;
 `
 const DivMessage = styled.div`
   text-align: center;
@@ -137,7 +130,7 @@ export default function NewUser() {
             </div>
 
             <DivButton>
-              <StyledButton type="submit">Submit</StyledButton>
+              <ButtonComp type="submit">Submit</ButtonComp>
             </DivButton>
             <DivMessage>
               <p style={{ color: 'red' }}>{showMessage && message}</p>

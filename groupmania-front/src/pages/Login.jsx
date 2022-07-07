@@ -7,6 +7,8 @@ import AdminContext from '../contexts/adminContext'
 import EmployeeContext from '../contexts/employeeContext'
 import Logo from '../assets/dark-logoB.png'
 import styled from 'styled-components'
+import ButtonComp from '../components/ButtonComp'
+import colors from '../utils/colors'
 
 const DivLogo = styled.div`
   display: flex;
@@ -24,7 +26,7 @@ const DivContainer = styled.div`
 `
 const DivBienvenue = styled.div`
   height: 398px;
-  background-color: #ffd7d7;
+  background-color: ${colors.secondary};
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   text-align: center;
@@ -109,20 +111,7 @@ export default function Login() {
                 />
               </div>
               <div className="col-12 mt-5 text-center">
-                <button
-                  style={{
-                    color: 'white',
-                    backgroundColor: '#FD2D01',
-                    width: '120px',
-                    height: '45px',
-                    fontSize: '18px',
-                    borderRadius: '15px',
-                    border: '1px solid #ffd7d7',
-                  }}
-                  type="submit"
-                >
-                  Login
-                </button>
+                <ButtonComp type="submit">Login</ButtonComp>
               </div>
             </div>
             <div

@@ -6,6 +6,8 @@ import Footer from '../components/Footer'
 import { persistPost } from '../services/postAPI'
 import NonImage from '../assets/no-image.jpg'
 import styled from 'styled-components'
+import colors from '../utils/colors'
+import ButtonComp from '../components/ButtonComp'
 
 const StyledForm = styled.form`
   margin-bottom: 200px;
@@ -13,55 +15,45 @@ const StyledForm = styled.form`
 `
 
 const DivTitle = styled.div`
-  border: 1px solid #ffd7d7;
+  border: 1px solid ${colors.secondary};
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  background-color: #ffd7d7;
+  background-color: ${colors.secondary};
 `
 
 const Styledh2 = styled.h2`
   text-align: center;
   margin: 0px;
-  color: #4e5166;
+  color: ${colors.tertiare};
 `
 
 const DivId = styled.div`
-  border-left: 1px solid #ffd7d7;
-  border-right: 1px solid #ffd7d7;
+  border-left: 1px solid ${colors.secondary};
+  border-right: 1px solid ${colors.secondary};
   padding-top: 50px;
 `
 
 const DivTitre = styled.div`
-  border-left: 1px solid #ffd7d7;
-  border-right: 1px solid #ffd7d7;
+  border-left: 1px solid ${colors.secondary};
+  border-right: 1px solid ${colors.secondary};
 `
 
 const StyledDiv = styled.div`
-  border-left: 1px solid #ffd7d7;
-  border-right: 1px solid #ffd7d7;
+  border-left: 1px solid ${colors.secondary};
+  border-right: 1px solid ${colors.secondary};
 `
 
 const DivButton = styled.div`
-  border-left: 1px solid #ffd7d7;
-  border-right: 1px solid #ffd7d7;
+  border-left: 1px solid ${colors.secondary};
+  border-right: 1px solid ${colors.secondary};
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  border-bottom: 1px solid #ffd7d7;
+  border-bottom: 1px solid ${colors.secondary};
 `
 
 const StyledDivButton = styled.div`
   padding-top: 50px;
   padding-bottom: 50px;
-`
-
-const StyledButton = styled.button`
-  border-radius: 20px;
-  color: white;
-  background-color: #fd2d01;
-  padding: 5px;
-  font-size: 18px;
-  border: 1px solid #ffd7d7;
-  width: 150px;
 `
 
 function NewPost() {
@@ -182,7 +174,7 @@ function NewPost() {
         <DivButton className="row">
           <div className="col-7"></div>
           <StyledDivButton className="col-4">
-            <StyledButton type="submit">Submit</StyledButton>
+            <ButtonComp type="submit">Submit</ButtonComp>
           </StyledDivButton>
         </DivButton>
       </StyledForm>

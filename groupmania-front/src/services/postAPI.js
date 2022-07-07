@@ -2,7 +2,7 @@ import { URL_ALLPOSTS } from '../utils/config'
 
 function findPosts(pageNumber) {
   const token = window.localStorage.getItem('token')
-  const chemin = URL_ALLPOSTS + '/' + pageNumber
+  const chemin = URL_ALLPOSTS + '/all/' + pageNumber
   return fetch(chemin, {
     method: 'GET',
     headers: {
